@@ -61,11 +61,12 @@ int main(int argc, char* argv[])
 		}else if(pid == 0){
 			//Proceso hijo  
 			
-			//Re-direcciona la salida estandar (terminal) a un archivo
+			//Re-direcciona la salida estandar (pantalla) y estandar errores (pantalla) a un archivo
 			//close(STDOUT_FILENO);
 			filefd = open(filename, O_CREAT|O_WRONLY|O_TRUNC, S_IRWXU);
 			assert(filefd != -1);
 			dup2(filefd, STDOUT_FILENO);
+			dup2(filefd, STDERR_FILENO);
 
 			//Ejecuta el comando con execvp
 			execvp(vector[0], vector);
